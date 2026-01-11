@@ -1,44 +1,84 @@
+.header,
 .footer {
-	border-radius: 10px 10px 0px 0px;
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	background: rgba(51, 51, 51, 0.7);
-	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(30px);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	background: rgba(7, 11, 22, 0.6);
+	box-shadow: 0 18px 50px -30px rgba(0, 0, 0, 0.85);
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
 }
 
 .header {
-	border-radius: 0 0 10px 10px;
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	background: rgba(51, 51, 51, 0.7);
-	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(30px);
+	border-top: none;
+	border-radius: 0 0 18px 18px;
+	position: relative;
+}
+
+.header::after {
+	content: "";
+	position: absolute;
+	left: 16px;
+	right: 16px;
+	bottom: -1px;
+	height: 1px;
+	background: linear-gradient(
+		90deg,
+		rgba(34, 211, 238, 0.0),
+		rgba(34, 211, 238, 0.35),
+		rgba(168, 85, 247, 0.35),
+		rgba(236, 72, 153, 0.35),
+		rgba(236, 72, 153, 0.0)
+	);
+}
+
+.footer {
+	border-bottom: none;
+	border-radius: 18px 18px 0 0;
+	position: relative;
+}
+
+.footer::before {
+	content: "";
+	position: absolute;
+	left: 16px;
+	right: 16px;
+	top: -1px;
+	height: 1px;
+	background: linear-gradient(
+		90deg,
+		rgba(34, 211, 238, 0.0),
+		rgba(34, 211, 238, 0.3),
+		rgba(168, 85, 247, 0.3),
+		rgba(236, 72, 153, 0.3),
+		rgba(236, 72, 153, 0.0)
+	);
 }
 
 .stack {
 	align-items: center;
 }
-.node {
-	align-items: center;
-	filter: drop-shadow(0 0 10px rgb(102, 251, 97));
-}
 
 .logo {
 	margin: 0 0.5em;
+	opacity: 0.86;
+	filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.45));
 }
 
 .tailwind {
-	filter: drop-shadow(0 0 10px rgb(97, 218, 251));
+	filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.45));
 }
 
 .vite {
-	filter: drop-shadow(0px 0px 10px rgb(182, 59, 254));
+	filter: drop-shadow(0 0 14px rgba(168, 85, 247, 0.45));
 }
 
 .react {
-	filter: drop-shadow(0px 0px 10px rgb(97, 218, 251));
+	filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.45));
 }
+
+.node {
+	filter: drop-shadow(0 0 14px rgba(163, 230, 53, 0.4));
+}
+
 .p5 {
-	filter: drop-shadow(0px 0px 10px rgb(251, 97, 97));
+	filter: drop-shadow(0 0 14px rgba(236, 72, 153, 0.4));
 }

@@ -15,12 +15,27 @@ import goldenImage from "../images/golden_thumb.png";
 import bLobImage from "../images/blob_thumb.gif";
 import FlowImage from "../images/flow_thumb.png";
 import SandPilesImage from "../images/sandpiles_thumb.png";
+
+export type SketchDifficulty = "Beginner" | "Intermediate" | "Advanced";
+
+export type SketchCategory =
+	| "Simulation"
+	| "Generative"
+	| "Math"
+	| "Systems"
+	| "Visualization"
+	| "Nature";
+
 export interface Sketch {
 	imageUrl: string;
 	title: string;
 	description: string;
 	sourceCode: string;
 	colors: string[];
+	difficulty: SketchDifficulty;
+	category: SketchCategory;
+	createdAt: string;
+	tags: string[];
 	sketchComponent?: LazyExoticComponent<() => JSX.Element>;
 }
 
@@ -33,6 +48,10 @@ export const sketches: Sketch[] = [
 		sourceCode:
 			"https://github.com/ZOASR/p5-sketches/blob/main/src/Fractal/sketch.ts",
 		colors: ["rgba(150, 51, 12, 0.5)", "rgba(10, 10, 10, 0.2)"],
+		difficulty: "Intermediate",
+		category: "Simulation",
+		createdAt: "2023-10-01",
+		tags: ["boids", "agents", "emergence"],
 		sketchComponent: FlockSketch,
 	},
 	{
@@ -43,16 +62,24 @@ export const sketches: Sketch[] = [
 		sourceCode:
 			"https://github.com/ZOASR/p5-sketches/blob/main/src/Flock/sketch.ts",
 		colors: ["rgba(58, 137, 25, 0.2)", "rgba(0, 89, 20, 0.5)"],
+		difficulty: "Beginner",
+		category: "Generative",
+		createdAt: "2023-09-12",
+		tags: ["koch", "recursion", "geometry"],
 		sketchComponent: FractalSketch,
 	},
 	{
 		title: "Golden Ratio",
 		description:
-			'Simulating the formation of a flower using the golden ratio and other custom numbers, check this <a style="font-weight: 800; text-decoration: underline;" href="https://www.youtube.com/watch?v=sj8Sg8qnjOg" target="_blank">numberphile video</a> for more amazing detail!',
+			' simulating the formation of a flower using the golden ratio and other custom numbers, check this <a style="font-weight: 800; text-decoration: underline;" href="https://www.youtube.com/watch?v=sj8Sg8qnjOg" target="_blank">numberphile video</a> for more amazing detail!',
 		imageUrl: goldenImage,
 		sourceCode:
 			"https://github.com/ZOASR/p5-sketches/blob/main/src/GoldenRatio/sketch.ts",
 		colors: ["rgba(204, 187, 100, 0.2)", "rgba(126, 117, 62, 0.5)"],
+		difficulty: "Beginner",
+		category: "Math",
+		createdAt: "2023-08-06",
+		tags: ["phyllotaxis", "math", "phi"],
 		sketchComponent: GoldenRatioSketch,
 	},
 	{
@@ -62,6 +89,10 @@ export const sketches: Sketch[] = [
 		sourceCode:
 			"https://github.com/ZOASR/p5-sketches/blob/main/src/Circuit/sketch.ts",
 		colors: ["rgba(0, 150, 0, 0.2)", "rgba(0, 53, 0, 0.5)"],
+		difficulty: "Intermediate",
+		category: "Systems",
+		createdAt: "2023-10-22",
+		tags: ["noise", "paths", "pcb"],
 		sketchComponent: CircuitSketch,
 	},
 	{
@@ -71,16 +102,24 @@ export const sketches: Sketch[] = [
 		sourceCode:
 			"https://github.com/ZOASR/p5-sketches/blob/main/src/Blob/sketch.ts",
 		colors: ["rgba(0, 0, 150, 0.5)", "rgba(50, 0, 0, 0.5)"],
+		difficulty: "Beginner",
+		category: "Nature",
+		createdAt: "2023-07-18",
+		tags: ["oscillation", "organic", "blob"],
 		sketchComponent: BlobSketch,
 	},
 	{
 		title: "Flow Field",
 		description:
-			'A colorful implementation of a flow field if you want more detail on flow fields please check out this <a style="font-weight: 800; text-decoration: underline;" href="https://www.youtube.com/watch?v=MJNy2mdCt20">video</a> ',
+			'A colorful implementation of a flow field. If you want more detail on flow fields please check out this <a style="font-weight: 800; text-decoration: underline;" href="https://www.youtube.com/watch?v=MJNy2mdCt20" target="_blank">video</a>',
 		imageUrl: FlowImage,
 		sourceCode:
 			"https://github.com/ZOASR/p5-sketches/blob/main/src/FlowField/sketch.ts",
 		colors: ["rgba(193, 98, 91, 0.2)", "rgba(58, 82, 169, 0.5)"],
+		difficulty: "Intermediate",
+		category: "Visualization",
+		createdAt: "2023-11-03",
+		tags: ["vectors", "particles", "noise"],
 		sketchComponent: FlowFieldSketch,
 	},
 	{
@@ -91,6 +130,10 @@ export const sketches: Sketch[] = [
 		sourceCode:
 			"https://github.com/ZOASR/p5-sketches/blob/main/src/SandPiles/sketch.ts",
 		colors: ["rgba(250, 100, 30, 0.2)", "rgba(180, 80, 20, 0.5)"],
+		difficulty: "Advanced",
+		category: "Systems",
+		createdAt: "2023-12-08",
+		tags: ["cellular-automaton", "complexity", "sand"],
 		sketchComponent: SandPilesSketch,
 	},
 ];
