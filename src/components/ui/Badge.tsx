@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "../../lib/cn";
 
-type BadgeTone = "neutral" | "cyan" | "purple" | "pink" | "lime";
+type BadgeTone = "neutral" | "red" | "darkRed" | "white";
 
 export type BadgeProps = React.HTMLAttributes<HTMLSpanElement> & {
     tone?: BadgeTone;
@@ -9,18 +9,17 @@ export type BadgeProps = React.HTMLAttributes<HTMLSpanElement> & {
 
 const toneClasses: Record<BadgeTone, string> = {
     neutral:
-        "bg-white/5 text-white/80 border-white/10",
-    cyan: "bg-accent-cyan/10 text-accent-cyan border-accent-cyan/20",
-    purple: "bg-accent-purple/10 text-accent-purple border-accent-purple/20",
-    pink: "bg-accent-pink/10 text-accent-pink border-accent-pink/20",
-    lime: "bg-accent-lime/10 text-accent-lime border-accent-lime/20",
+        "bg-black/60 backdrop-blur-md text-white/90 border-white/10",
+    red: "bg-accent-red950/60 backdrop-blur-md text-accent-redLight border-accent-red/30",
+    darkRed: "bg-accent-red950/80 backdrop-blur-md text-accent-red border-accent-redDark/50",
+    white: "bg-white/10 backdrop-blur-md text-white border-white/20",
 };
 
 export function Badge({ className, tone = "neutral", ...props }: BadgeProps) {
     return (
         <span
             className={cn(
-                "inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium",
+                "inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-bold uppercase tracking-wider",
                 toneClasses[tone],
                 className
             )}

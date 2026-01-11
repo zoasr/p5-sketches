@@ -64,7 +64,7 @@ const SketchGrid = () => {
                     <select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
-                        className="h-10 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white/80 shadow-md outline-none focus:border-accent-cyan/35 focus:ring-2 focus:ring-accent-cyan/25"
+                        className="h-10 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white/80 shadow-md outline-none focus:border-accent-red/35 focus:ring-2 focus:ring-accent-red/25"
                     >
                         <option value="all">All categories</option>
                         {categories.map((c) => (
@@ -77,7 +77,7 @@ const SketchGrid = () => {
                     <select
                         value={difficulty}
                         onChange={(e) => setDifficulty(e.target.value)}
-                        className="h-10 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white/80 shadow-md outline-none focus:border-accent-cyan/35 focus:ring-2 focus:ring-accent-cyan/25"
+                        className="h-10 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white/80 shadow-md outline-none focus:border-accent-red/35 focus:ring-2 focus:ring-accent-red/25"
                     >
                         <option value="all">All difficulty</option>
                         {difficulties.map((d) => (
