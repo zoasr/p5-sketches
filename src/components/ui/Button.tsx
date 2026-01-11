@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import * as React from "react";
 import { cn } from "../../lib/cn";
 
@@ -12,13 +13,13 @@ export function buttonClasses(
     return cn(
         "inline-flex items-center justify-center gap-2 rounded-xl font-medium",
         "transition-all duration-200",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/70 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950",
         size === "sm" && "h-9 px-3 text-sm",
         size === "md" && "h-10 px-4 text-sm",
         variant === "primary" &&
             cn(
-                "text-ink-950",
-                "bg-gradient-to-r from-accent-cyan via-accent-purple to-accent-pink",
+                "text-white",
+                "bg-gradient-to-r from-accent-red via-accent-redDark to-accent-red",
                 "hover:brightness-110",
                 "shadow-glow"
             ),

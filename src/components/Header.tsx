@@ -29,7 +29,7 @@ const Header = ({ title }: { title: string | null }) => {
                             to="/"
                             className="block truncate text-base font-semibold tracking-tight text-white/90"
                         >
-                            <span className="bg-gradient-to-r from-accent-cyan via-accent-purple to-accent-pink bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-accent-red via-accent-redDark to-accent-red bg-clip-text text-transparent">
                                 p5 sketches
                             </span>
                         </Link>
