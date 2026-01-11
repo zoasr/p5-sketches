@@ -1,12 +1,15 @@
 import { ReactP5Wrapper } from "@p5-wrapper/react";
 import { sketch } from "./sketch";
+import { CanvasFrame } from "../components/ui/CanvasFrame";
 
-const SandPiles = () => {
+const SandPilesSketch = () => {
 	return (
-		<div className="rounded-lg w-min h-min mx-auto overflow-hidden m-10">
-			<ReactP5Wrapper sketch={sketch} />
+		<div className="flex flex-col gap-8">
+			<CanvasFrame className="mx-auto my-4">
+				<ReactP5Wrapper sketch={sketch} />
+			</CanvasFrame>
 		</div>
 	);
 };
 
-export default SandPiles;
+export default SandPilesSketch;

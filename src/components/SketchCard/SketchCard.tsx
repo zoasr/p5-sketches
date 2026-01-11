@@ -1,89 +1,111 @@
-import style from "./SketchCard.module.css";
-import { Sketch } from "../../sketches_data";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import sourceCodeImage from "../../../images/source_code.svg";
+import { Sketch } from "../../sketches_data";
+import { Badge } from "../ui/Badge";
+import { buttonClasses } from "../ui/Button";
+import { cn } from "../../lib/cn";
 
-const toTitleCase = (str: string) =>
-	str.replace(
-		/\w\S*/g,
-		(txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase()
-	);
+function stripHtml(html: string) {
+	return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+}
 
-const SketchCard = ({
-	title,
-	imageUrl,
-	description,
-	sourceCode,
-	colors,
-}: Sketch) => {
-	const [isHover, setIsHover] = useState<boolean>(false);
+function formatDate(dateIso: string) {
+	const d = new Date(dateIso);
+	if (Number.isNaN(d.getTime())) return dateIso;
+	return d.toLocaleDateString(undefined, {
+		year: "numeric",
+		month: "short",
+		day: "2-digit",
+	});
+}
 
-	const handleMouseEnter = () => {
-		setIsHover(true);
-	};
-	const handleMouseLeave = () => {
-		setIsHover(false);
-	};
+const toneByDifficulty: Record<Sketch["difficulty"], Parameters<typeof Badge>[0]["tone"]> = {
+	Beginner: "cyan",
+	Intermediate: "purple",
+	Advanced: "pink",
+};
+
+const SketchCard = (sketch: Sketch) => {
+	const previewText = stripHtml(sketch.description);
+
 	return (
-		<>
+		<article className="group relative mb-6 break-inside-avoid animate-fade-up">
 			<div
-				className={
-					style.sketchCard +
-					"  shadow-sm hover:shadow-xl hover:shadow-black/20 hover:-translate-y-2 transition-all duration-150 ease-in-out"
-				}
+				className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-70"
 				style={{
-					background: isHover
-						? `linear-gradient(45deg,${colors[1]}, ${colors[0]}) padding-box,linear-gradient(135deg, ${colors[0]},  ${colors[1]}) border-box`
-						: undefined,
+					background: `linear-gradient(135deg, ${sketch.colors[0]}, ${sketch.colors[1]})`,
 				}}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
+			/>
+			<div
+				className={cn(
+					"relative overflow-hidden rounded-2xl",
+					"border border-white/10 bg-surface backdrop-blur-xl",
+					"shadow-md transition-transform duration-300",
+					"group-hover:-translate-y-1 group-hover:shadow-glow"
+				)}
 			>
-				<div className="w-full h-full rounded-xl bg-white flex justify-center overflow-hidden justify-self-start">
+				<div className="relative aspect-[16/10] overflow-hidden">
 					<img
-						className="object-cover w-full "
-						src={imageUrl}
-						alt={title}
+						src={sketch.imageUrl}
+						alt={sketch.title}
+						className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
 					/>
+					<div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/75 via-ink-950/20 to-transparent" />
+					<div className="absolute left-3 top-3 flex flex-wrap gap-2">
+						<Badge tone={toneByDifficulty[sketch.difficulty]}>
+							{sketch.difficulty}
+						</Badge>
+						<Badge>{sketch.category}</Badge>
+					</div>
 				</div>
-				<hr className="w-10/12 my-4 opacity-10 shadow-lg rounded-lg ring-1 ring-white" />
-				<h1 className="text-3xl my-0">{title}</h1>
-				<hr
-					style={{ borderColor: colors[0], borderWidth: "2px" }}
-					className="w-1/6 my-2 shadow-lg rounded-lg"
-				/>
-				<p
-					dangerouslySetInnerHTML={{
-						__html: description,
-					}}
-					className="leading-relaxed text-sm sm:text-md font-thin tracking-wider"
-				></p>
-				<hr className="w-10/12 my-4 opacity-10 shadow-lg rounded-lg ring-1 ring-white" />
-				<div className="flex justify-around align-middle w-full self-end">
-					<Link
-						className="cursor-pointer m-2 h-min p-2 shadow-sm hover:bg-white/50 hover:ring-white/60 bg-white/20  ring-2 ring-white/30 rounded-lg text-xs md:text-md font-normal hover:underline hover:font-extrabold transition-all duration-150"
-						to={title.toLowerCase()}
-						state={{ sourceCode, title: toTitleCase(title) }}
-					>
-						View Sketch
-					</Link>
-					<span className="h-1/2 self-center mx-2 bg-white rounded-lg ring-2 ring-white opacity-10"></span>
-					<a
-						className="cursor-pointer self-center"
-						href={sourceCode}
-						target="_blank"
-					>
-						<img
-							width={30}
-							src={sourceCodeImage}
-							alt=""
-							aria-label="Source Code"
-						/>
-					</a>
+
+				<div className="flex flex-col gap-3 p-5">
+					<header className="flex items-start justify-between gap-3">
+						<div className="min-w-0">
+							<h3 className="truncate text-lg font-semibold tracking-tight text-white">
+								{sketch.title}
+							</h3>
+							<p className="mt-1 text-xs text-white/50">
+								{formatDate(sketch.createdAt)}
+							</p>
+						</div>
+					</header>
+
+					<p className="line-clamp-3 text-sm leading-relaxed text-white/70">
+						{previewText}
+					</p>
+
+					<div className="flex flex-wrap gap-2">
+						{sketch.tags.slice(0, 4).map((tag) => (
+							<Badge key={tag} className="text-white/70">
+								{tag}
+							</Badge>
+						))}
+					</div>
+
+					<div className="mt-2 flex items-center justify-between gap-3">
+						<Link
+							to={sketch.title.toLowerCase()}
+							className={buttonClasses({ variant: "secondary", size: "sm" })}
+						>
+							View sketch
+						</Link>
+						<a
+							href={sketch.sourceCode}
+							target="_blank"
+							rel="noreferrer"
+							className={cn(
+								buttonClasses({ variant: "ghost", size: "sm" }),
+								"px-2"
+							)}
+							aria-label="Source code"
+						>
+							<img width={18} src={sourceCodeImage} alt="" />
+						</a>
+					</div>
 				</div>
 			</div>
-		</>
+		</article>
 	);
 };
 

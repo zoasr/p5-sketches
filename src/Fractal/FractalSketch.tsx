@@ -3,9 +3,7 @@ import { sketch } from "./sketch";
 import { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import style from "./FractalSketch.module.css";
-import { useLocation } from "react-router-dom";
-import { FaCode } from "react-icons/fa";
+import { CanvasFrame } from "../components/ui/CanvasFrame";
 
 interface Shape {
 	rotation: number | number[];
@@ -14,87 +12,75 @@ interface Shape {
 
 const FractalSketch = () => {
 	const [shape, setShape] = useState<Shape>({ rotation: 30, iterations: 3 });
-	const location = useLocation();
+
 	return (
-		<>
-			<div className={style.header}>
-				<div className="my-6 w-full sm:w-1/3">
-					<p className="whitespace-nowrap">Angle: {shape.rotation}</p>
-					<Slider
-						min={0}
-						max={180}
-						defaultValue={30}
-						step={0.1}
-						marks={{
-							30: "30°",
-							60: "60°",
-							90: "90°",
-							180: "180° (Max)",
-						}}
-						onChange={(value: number | number[]) =>
-							setShape((prevShape: Shape) => ({
-								...prevShape,
-								rotation: value,
-							}))
-						}
-						trackStyle={[
-							{ backgroundColor: "#53af1e" },
-							{ backgroundColor: "black" },
-						]}
-						handleStyle={[
-							{ backgroundColor: "#00a525" },
-							{ backgroundColor: "#005914" },
-						]}
-						railStyle={{ backgroundColor: "white" }}
-					/>
-				</div>
-				<div className="my-6 w-full sm:w-1/3">
-					<p className="whitespace-nowrap">
-						No. of iterations: {shape.iterations}
-					</p>
-					<Slider
-						min={1}
-						max={5}
-						defaultValue={3}
-						step={1}
-						marks={{ 1: "1", 2: "2", 3: "3", 4: "4", 5: "5" }}
-						onChange={(value: number | number[]) =>
-							setShape((prevShape: Shape) => ({
-								...prevShape,
-								iterations: value,
-							}))
-						}
-						trackStyle={[
-							{ backgroundColor: "#53af1e" },
-							{ backgroundColor: "black" },
-						]}
-						handleStyle={[
-							{ backgroundColor: "#00a525" },
-							{ backgroundColor: "#005914" },
-						]}
-						railStyle={{ backgroundColor: "white" }}
-					/>
+		<div className="flex flex-col gap-8">
+			<div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-md">
+				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+					<div className="flex flex-col gap-3">
+						<p className="text-sm font-medium text-white/80">
+							Angle: {shape.rotation}
+						</p>
+						<Slider
+							min={0}
+							max={180}
+							defaultValue={30}
+							step={0.1}
+							marks={{
+								30: "30°",
+								60: "60°",
+								90: "90°",
+								180: "180°",
+							}}
+							onChange={(value: number | number[]) =>
+								setShape((prev) => ({ ...prev, rotation: value }))
+							}
+							trackStyle={[
+								{ backgroundColor: "#a3e635" },
+								{ backgroundColor: "rgba(255,255,255,0.12)" },
+							]}
+							handleStyle={[
+								{ backgroundColor: "#0f172a" },
+								{ backgroundColor: "#22d3ee" },
+							]}
+							railStyle={{ backgroundColor: "rgba(255,255,255,0.12)" }}
+						/>
+					</div>
+					<div className="flex flex-col gap-3">
+						<p className="text-sm font-medium text-white/80">
+							Iterations: {shape.iterations}
+						</p>
+						<Slider
+							min={1}
+							max={5}
+							defaultValue={3}
+							step={1}
+							marks={{ 1: "1", 2: "2", 3: "3", 4: "4", 5: "5" }}
+							onChange={(value: number | number[]) =>
+								setShape((prev) => ({ ...prev, iterations: value }))
+							}
+							trackStyle={[
+								{ backgroundColor: "#a855f7" },
+								{ backgroundColor: "rgba(255,255,255,0.12)" },
+							]}
+							handleStyle={[
+								{ backgroundColor: "#0f172a" },
+								{ backgroundColor: "#ec4899" },
+							]}
+							railStyle={{ backgroundColor: "rgba(255,255,255,0.12)" }}
+						/>
+					</div>
 				</div>
 			</div>
-			<div className={style.canvasWrapper} id="canvas-wrapper">
+
+			<CanvasFrame className="mx-auto">
 				<ReactP5Wrapper
 					sketch={sketch}
-					rotation={shape?.rotation}
-					iterations={shape?.iterations}
-				></ReactP5Wrapper>
-			</div>
-			<div className="w-max mx-auto flex justify-center  h-max underline hover:font-extrabold transition-all duration-150">
-				<a
-					className="flex"
-					href={location.state.sourceCode}
-					target="_blank"
-				>
-					<p>View source code</p>
-					<span className="w-2"></span>
-					<FaCode />
-				</a>
-			</div>
-		</>
+					rotation={shape.rotation}
+					iterations={shape.iterations}
+				/>
+			</CanvasFrame>
+		</div>
 	);
 };
 
