@@ -46,19 +46,19 @@ export default class Fractal {
 	}
 
 	show() {
-		for (let l of this.lines) {
+		for (const l of this.lines) {
 			l.show();
 		}
 	}
 
 	iterate(before: Line[]) {
-		let now = [];
-		for (let l of before) {
-			let a = l.start();
-			let b = l.left();
-			let c = l.middle();
-			let d = l.right();
-			let e = l.end();
+		const now = [];
+		for (const l of before) {
+			const a = l.start();
+			const b = l.left();
+			const c = l.middle();
+			const d = l.right();
+			const e = l.end();
 
 			now.push(new Line(a, b, this.a, this.p));
 			now.push(new Line(b, c, this.a, this.p));

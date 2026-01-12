@@ -37,25 +37,25 @@ export default class Line {
 	}
 
 	left() {
-		let v = p5.Vector.sub(this.b, this.a);
+		const v = p5.Vector.sub(this.b, this.a);
 		v.div(3);
 		v.add(this.a);
 		return v;
 	}
 
 	right() {
-		let v = p5.Vector.sub(this.a, this.b);
+		const v = p5.Vector.sub(this.a, this.b);
 		v.div(3);
 		v.add(this.b);
 		return v;
 	}
 
 	middle() {
-		let v = p5.Vector.sub(this.b, this.a);
-		let m = v.copy();
+		const v = p5.Vector.sub(this.b, this.a);
+		const m = v.copy();
 		m.div(2);
 		v.div(3);
-		let p = this.a.copy();
+		const p = this.a.copy();
 		p.add(v);
 		v.rotate(-p5.prototype.radians(this.angle));
 		p.add(v);
