@@ -5,7 +5,7 @@ import "rc-slider/assets/index.css";
 import Slider from "rc-slider";
 
 import { Radio } from "@mui/material";
-import { CanvasFrame } from "../components/ui/CanvasFrame";
+import { InteractiveCanvasFrame } from "../components/ui/InteractiveCanvasFrame";
 
 interface BVector {
     trace: boolean;
@@ -128,7 +128,7 @@ const BlobSketch = () => {
                 </div>
             </div>
 
-            <CanvasFrame className="mx-auto">
+            <InteractiveCanvasFrame className="mx-auto">
                 <ReactP5Wrapper
                     xf={sliderValues.yfreq}
                     yf={sliderValues.xfreq}
@@ -137,7 +137,7 @@ const BlobSketch = () => {
                     follow={vector.follow}
                     sketch={sketch}
                 />
-            </CanvasFrame>
+            </InteractiveCanvasFrame>
         </div>
     );
 };
